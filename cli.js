@@ -7,7 +7,7 @@ import path from 'path';
 import Configstore from 'configstore';
 
 import cmdHelp from './cli.help';
-import cmdNewProject from './cli.new');
+import cmdNewProject from './cli.new';
 import cmdList from './cli.list';
 import cmdSite from './cli.site';
 import cmdCollect from './cli.collect';
