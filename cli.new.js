@@ -4,10 +4,14 @@ import chalk from 'chalk';
 import fs from 'fs';
 import path from 'path';
 import fsextra from 'fs-extra';
-import { plantumlVersions } from './utils';
 import Configstore from 'configstore';
 
-import { readFile, writeFile, makeDirectory } from './utils.js';
+import {
+    makeDirectory,
+    readFile,
+    writeFile,
+    plantumlVersions
+} from './utils.js';
 
 const validate = (schema) => (answers) => {
     //just in case
@@ -82,7 +86,7 @@ const generateTemplate = async (dir, projectName, plantumlVersion) => {
     await build(dir);
 };
 
-module.exports = async () => {
+export default async () => {
     console.log('\nThis will create a new folder with the name of the project');
 
     let responses;

@@ -1,19 +1,17 @@
 import figlet from 'figlet';
 import program from 'commander';
-import _package from './package.json';
 import chalk from 'chalk';
 import path from 'path';
-
 import Configstore from 'configstore';
-
-import cmdHelp from './cli.help';
-import cmdNewProject from './cli.new';
-import cmdList from './cli.list';
-import cmdSite from './cli.site';
-import cmdCollect from './cli.collect';
-import { build } from './build';
 import watch from 'node-watch';
 
+import _package from './package.json' with { type: "json" };
+import cmdHelp from './cli.help.js';
+import cmdNewProject from './cli.new.js';
+import cmdList from './cli.list.js';
+import cmdSite from './cli.site.js';
+import { cmdCollect } from './cli.collect.js';
+import { build } from './build.js';
 import { clearConsole } from './utils.js';
 
 const intro = () => {
@@ -56,7 +54,7 @@ const getOptions = (conf) => {
     };
 };
 
-module.exports = async () => {
+export default async () => {
     program
         .version(_package.version)
         .option('new', 'create a new project from template')

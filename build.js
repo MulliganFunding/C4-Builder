@@ -6,10 +6,10 @@ import fs from 'fs';
 import path from 'path';
 import plantuml from 'node-plantuml';
 import fsextra from 'fs-extra';
-import docsifyTemplate from './docsify.template.js';
 import mdpdf from 'md-to-pdf';
 import https from 'https';
 import http from 'http';
+import docsifyTemplate from './docsify.template.js';
 let markdownpdf = mdpdf.mdToPdf;
 
 const DIST_BACKUP_FOLDER_SUFFIX = '_bk';
@@ -714,7 +714,7 @@ const generateWebMD = async (tree, options) => {
     }
 
     if (options.DOCSIFY_TEMPLATE && options.DOCSIFY_TEMPLATE !== '') {
-        docsifyTemplate = require(path.join(process.cwd(), options.DOCSIFY_TEMPLATE));
+        docsifyTemplate = import(path.join(process.cwd(), options.DOCSIFY_TEMPLATE));
     }
 
     //docsify homepage
@@ -746,7 +746,7 @@ const generateWebMD = async (tree, options) => {
     return Promise.all(filePromises);
 };
 
-const build = async (options, conf) => {
+export const build = async (options, conf) => {
     let start_date = new Date();
     const bkFolderName = options.DIST_FOLDER + DIST_BACKUP_FOLDER_SUFFIX;
 
@@ -810,4 +810,3 @@ const build = async (options, conf) => {
 
     console.log(chalk.green(`built in ${(new Date() - start_date) / 1000} seconds`));
 };
-exports.build = build;

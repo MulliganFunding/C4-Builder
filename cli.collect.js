@@ -3,7 +3,7 @@ import joi from 'joi';
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { plantumlVersions } from './utils';
+import { plantumlVersions } from './utils.js';
 
 const validate = (schema) => (answers) => {
     //just in case
@@ -14,7 +14,7 @@ const validate = (schema) => (answers) => {
     }
 };
 
-module.exports = async (currentConfiguration, conf, program) => {
+export const cmdCollect = async (currentConfiguration, conf, program) => {
     if (!currentConfiguration.PROJECT_NAME || program.config) {
         responses = await inquirer.prompt({
             type: 'input',
