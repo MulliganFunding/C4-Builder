@@ -1,5 +1,5 @@
-const fs = require('fs');
-const zlib = require('node:zlib');
+import fs from 'fs';
+import zlib from 'node:zlib';
 
 const makeDirectory = (path) =>
     new Promise((resolve) => {

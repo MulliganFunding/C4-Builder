@@ -1,6 +1,6 @@
-const chalk = require('chalk');
-const path = require('path');
-const express = require('express');
+import chalk from 'chalk';
+import path from 'path';
+import express from 'express';
 const app = express();
 
 module.exports = (currentConfiguration, program) => {

@@ -1,9 +1,9 @@
-const inquirer = require('inquirer');
-const joi = require('joi');
-const fs = require('fs');
-const path = require('path');
-const chalk = require('chalk');
-const { plantumlVersions } = require('./utils');
+import inquirer from 'inquirer';
+import joi from 'joi';
+import fs from 'fs';
+import path from 'path';
+import chalk from 'chalk';
+import { plantumlVersions } from './utils';
 
 const validate = (schema) => (answers) => {
     //just in case

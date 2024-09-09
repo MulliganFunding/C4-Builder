@@ -1,14 +1,13 @@
-const figlet = require('figlet');
-const inquirer = require('inquirer');
-const joi = require('joi');
-const chalk = require('chalk');
-const fs = require('fs');
-const path = require('path');
-const fsextra = require('fs-extra');
-const { plantumlVersions } = require('./utils');
-const Configstore = require('configstore');
+import inquirer from 'inquirer';
+import joi from 'joi';
+import chalk from 'chalk';
+import fs from 'fs';
+import path from 'path';
+import fsextra from 'fs-extra';
+import { plantumlVersions } from './utils';
+import Configstore from 'configstore';
 
-const { readFile, writeFile, makeDirectory } = require('./utils.js');
+import { readFile, writeFile, makeDirectory } from './utils.js';
 
 const validate = (schema) => (answers) => {
     //just in case

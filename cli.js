@@ -1,20 +1,20 @@
-const figlet = require('figlet');
-const program = require('commander');
-const package = require('./package.json');
-const chalk = require('chalk');
-const path = require('path');
+import figlet from 'figlet';
+import program from 'commander';
+import _package from './package.json';
+import chalk from 'chalk';
+import path from 'path';
 
-const Configstore = require('configstore');
+import Configstore from 'configstore';
 
-const cmdHelp = require('./cli.help');
-const cmdNewProject = require('./cli.new');
-const cmdList = require('./cli.list');
-const cmdSite = require('./cli.site');
-const cmdCollect = require('./cli.collect');
-const { build } = require('./build');
-const watch = require('node-watch');
+import cmdHelp from './cli.help';
+import cmdNewProject from './cli.new');
+import cmdList from './cli.list';
+import cmdSite from './cli.site';
+import cmdCollect from './cli.collect';
+import { build } from './build';
+import watch from 'node-watch';
 
-const { clearConsole } = require('./utils.js');
+import { clearConsole } from './utils.js';
 
 const intro = () => {
     console.log(chalk.blue(figlet.textSync('c4builder')));
@@ -58,7 +58,7 @@ const getOptions = (conf) => {
 
 module.exports = async () => {
     program
-        .version(package.version)
+        .version(_package.version)
         .option('new', 'create a new project from template')
         .option('config', 'change configuration for the current directory')
         .option('list', 'display the current configuration')
