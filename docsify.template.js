@@ -9,10 +9,10 @@
 //     },
 //     stylesheet: ''
 //   }
-module.exports = (options) => {
+export default (options) => {
     return `<!DOCTYPE html>
     <html lang="en">
-    
+
     <head>
         <meta charset="UTF-8">
         <title>${options.name}</title>
@@ -22,7 +22,7 @@ module.exports = (options) => {
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <link rel="stylesheet" href="${options.stylesheet}">
     </head>
-    
+
     <body>
         <div id="app"></div>
         <script>
@@ -36,6 +36,6 @@ module.exports = (options) => {
             `<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>`
         }
     </body>
-    
+
     </html>`;
 };

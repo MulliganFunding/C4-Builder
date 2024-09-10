@@ -1,6 +1,6 @@
-const chalk = require('chalk');
+import chalk from 'chalk';
 
-module.exports = (currentConfiguration) => {
+export default (currentConfiguration) => {
     console.log(`
 CURRENT CONFIGURATION
 
@@ -28,7 +28,7 @@ Generate multiple markdown files: ${
         currentConfiguration.GENERATE_MD !== undefined
             ? chalk.green(currentConfiguration.GENERATE_MD)
             : chalk.red('not set')
-    }    
+    }
     ${
         currentConfiguration.generateMD
             ? `include basic navigation: ${chalk.green(currentConfiguration.INCLUDE_NAVIGATION || false)}

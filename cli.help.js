@@ -1,13 +1,13 @@
-const figlet = require('figlet');
-const chalk = require('chalk');
+import figlet from 'figlet';
+import chalk from 'chalk';
 
-module.exports = () => {
+export default () => {
     console.log(chalk.blue(figlet.textSync('c4builder')));
     console.log(`
 Full documentation
 ${chalk.blue('https://adrianvlupu.github.io/C4-Builder/')}
 
-CONFIGURATION OPTIONS 
+CONFIGURATION OPTIONS
 ${chalk.cyan('Project Name')}
 Will be used as the #header of the resulting documentation.
 ${chalk.cyan('HomePage Name')}

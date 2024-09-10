@@ -1,14 +1,14 @@
-const fs = require('fs');
-const zlib = require('node:zlib');
+import fs from 'fs';
+import zlib from 'node:zlib';
 
-const makeDirectory = (path) =>
+export const makeDirectory = (path) =>
     new Promise((resolve) => {
         fs.mkdir(path, () => {
             return resolve();
         });
     });
 
-const readFile = (path, type) =>
+export const readFile = (path, type) =>
     new Promise((resolve, reject) => {
         fs.readFile(path, type, (err, data) => {
             if (err) return reject(err);
@@ -17,7 +17,7 @@ const readFile = (path, type) =>
         });
     });
 
-const writeFile = (path, data) =>
+export const writeFile = (path, data) =>
     new Promise((resolve, reject) => {
         fs.writeFile(path, data, (err, res) => {
             if (err) return reject(err);
@@ -26,11 +26,11 @@ const writeFile = (path, data) =>
         });
     });
 
-const writeOnSameLine = async (message, fn) => {
+export const writeOnSameLine = async (message, fn) => {
     process.stdout.write(`${message}\r`);
 };
 
-const encodeURIPath = (path) => {
+export const encodeURIPath = (path) => {
     path = path.split('\\').join('/');
     return encodeURI(path);
 };
@@ -58,7 +58,7 @@ THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABI
 CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
  */
-const urlTextFrom = (s) => {
+export const urlTextFrom = (s) => {
     let opt = { level: 9 };
     let d = zlib.deflateRawSync(new Buffer.from(s), opt);
     let b = encode64(String.fromCharCode(...d.subarray(0)));
@@ -117,15 +117,15 @@ const urlTextFrom = (s) => {
     }
 };
 
-const plantUmlServerUrl = (baseURL, imageFormat, content) =>
+export const plantUmlServerUrl = (baseURL, imageFormat, content) =>
     `${baseURL}/${imageFormat}/0/${urlTextFrom(content)}`;
 
-const clearConsole = () => {
+export const clearConsole = () => {
     process.stdout.write('\x1b[2J');
     process.stdout.write('\x1b[0f');
 };
 
-const plantumlVersions = [
+export const plantumlVersions = [
     {
         version: '1.2020.07',
         jar: 'plantuml-1.2020.7.jar'
@@ -152,14 +152,3 @@ const plantumlVersions = [
         jar: 'plantuml-1.2023.10.jar'
     }
 ];
-
-module.exports = {
-    makeDirectory,
-    readFile,
-    writeFile,
-    encodeURIPath,
-    writeOnSameLine,
-    clearConsole,
-    plantUmlServerUrl,
-    plantumlVersions
-};

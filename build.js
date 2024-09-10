@@ -1,24 +1,27 @@
 #!/usr/bin/env node
 
-const chalk = require('chalk');
-const fs = require('fs');
-const path = require('path');
-const fsextra = require('fs-extra');
-let docsifyTemplate = require('./docsify.template.js');
-const markdownpdf = require('md-to-pdf').mdToPdf;
-const http = require('http');
+import chalk from 'chalk';
+import crypto from 'crypto';
+import fs from 'fs';
+import path from 'path';
+import plantuml from 'node-plantuml';
+import fsextra from 'fs-extra';
+import mdpdf from 'md-to-pdf';
+import https from 'https';
+import http from 'http';
+import docsifyTemplate from './docsify.template.js';
+let markdownpdf = mdpdf.mdToPdf;
 
 const DIST_BACKUP_FOLDER_SUFFIX = '_bk';
 
-const {
+import {
     encodeURIPath,
     makeDirectory,
     readFile,
     writeFile,
     plantUmlServerUrl,
     plantumlVersions
-} = require('./utils.js');
-const { date } = require('joi');
+} from './utils.js';
 
 const getMime = (format) => {
     if (format == 'svg') return `image/svg+xml`;
@@ -29,7 +32,7 @@ const httpGet = async (url) => {
     // return new pending promise
     return new Promise((resolve, reject) => {
         // select http or https module, depending on reqested url
-        const lib = url.startsWith('https') ? require('https') : require('http');
+        const lib = url.startsWith('https') ? https : http;
         const request = lib.get(url, (response) => {
             // handle http errors
             if (response.statusCode < 200 || response.statusCode > 299) {
@@ -143,8 +146,6 @@ const generateImages = async (tree, options, onImageGenerated, conf) => {
     if (options.PLANTUML_VERSION === 'latest') ver = plantumlVersions.find((v) => v.isLatest);
     if (!ver) throw new Error(`PlantUML version ${options.PLANTUML_VERSION} not supported`);
 
-    const crypto = require('crypto');
-
     for (const item of tree) {
         totalImages += item.pumlFiles.length;
     }
@@ -153,7 +154,7 @@ const generateImages = async (tree, options, onImageGenerated, conf) => {
         for (const pumlFile of item.pumlFiles) {
             //There was a bug with this, that's why I require it inside the loop
             process.env.PLANTUML_HOME = path.join(__dirname, 'vendor', ver.jar);
-            const plantuml = require('node-plantuml');
+
 
             // Calculate hash of current puml content
             let cksum = crypto
@@ -713,7 +714,7 @@ const generateWebMD = async (tree, options) => {
     }
 
     if (options.DOCSIFY_TEMPLATE && options.DOCSIFY_TEMPLATE !== '') {
-        docsifyTemplate = require(path.join(process.cwd(), options.DOCSIFY_TEMPLATE));
+        docsifyTemplate = import(path.join(process.cwd(), options.DOCSIFY_TEMPLATE));
     }
 
     //docsify homepage
@@ -745,7 +746,7 @@ const generateWebMD = async (tree, options) => {
     return Promise.all(filePromises);
 };
 
-const build = async (options, conf) => {
+export const build = async (options, conf) => {
     let start_date = new Date();
     const bkFolderName = options.DIST_FOLDER + DIST_BACKUP_FOLDER_SUFFIX;
 
@@ -809,4 +810,3 @@ const build = async (options, conf) => {
 
     console.log(chalk.green(`built in ${(new Date() - start_date) / 1000} seconds`));
 };
-exports.build = build;
